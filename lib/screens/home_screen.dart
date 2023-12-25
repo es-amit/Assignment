@@ -20,20 +20,19 @@ class HomeScreen extends StatelessWidget {
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 5),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("${Provider.of<ToDoProvider>(context).getCompletedTaskCount().toString()} out of ${Provider.of<ToDoProvider>(context).todos.length} are completed!!",
-                style: const TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Expanded(
-                child: Consumer<ToDoProvider>(
-                  builder: (context, provider, child) {
-                    return ListView.builder(
+          child: Consumer<ToDoProvider>(
+            builder: (context, provider, child) {
+              int complete_tasks = provider.getCompletedTaskCount();
+              int total_tasks= provider.getTotalTaskCount();
+              return Column(
+                children: [
+                  Text(total_tasks == 0  ? "No Tasks are pending" : "$complete_tasks out of $total_tasks are completed!",
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold
+                    ),),
+                  Expanded(
+                    child: ListView.builder(
                         itemCount: provider.todos.length,
                         itemBuilder: ((context, index) {
                           final todo = provider.todos[index];
@@ -60,11 +59,11 @@ class HomeScreen extends StatelessWidget {
                                 },
                                 icon: const Icon(Icons.delete)),
                           );
-                        }));
-                  },
-                ),
-              ),
-            ],
+                        })),
+                  ),
+                ],
+              );
+            },
           ),
         ),
         floatingActionButton: Padding(

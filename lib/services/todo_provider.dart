@@ -11,6 +11,10 @@ class ToDoProvider with ChangeNotifier {
     return _todos.where((todo) => todo.isCompleted).length;
   }
 
+  int getTotalTaskCount(){
+    return _todos.length;
+  }
+
   Future loadTodos() async {
     _todos = await DatabaseHelper.instance.getTodos();
     notifyListeners();

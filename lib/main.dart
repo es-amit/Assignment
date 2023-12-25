@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_task/screens/home_screen.dart';
+// import 'package:todo_task/screens/home_screen.dart';
+import 'package:todo_task/screens/splash_screen.dart';
 import 'package:todo_task/services/todo_provider.dart';
 
 Future<void> main() async {
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home:const HomeScreen(),
+        home:const SplashScreen(),
       ),
     );
   }

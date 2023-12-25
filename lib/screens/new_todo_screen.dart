@@ -55,6 +55,7 @@ class _NewTodoState extends State<NewTodo> {
                         borderSide:
                             const BorderSide(color: Colors.blue, width: 1)),
                   ),
+                  
                 ),
                 const SizedBox(height: 30,),
                 Row(
@@ -108,12 +109,29 @@ class _NewTodoState extends State<NewTodo> {
 
   void _saveForm(BuildContext context) {
     final form = _formKey.currentState;
-    if (form != null && form.validate()) {
+    if (form != null && form.validate() && controller.text.isNotEmpty) {
       form.save();
       final newTodo = Todo(
           title: controller.text, isCompleted: false, reminder: DateTime.now());
       Provider.of<ToDoProvider>(context, listen: false).addTodo(newTodo);
       Navigator.of(context).pop(true);
+    }
+    else{
+      showDialog(
+        context: context, 
+        builder: (context){
+          return const AlertDialog(
+            icon: Icon(Icons.close_outlined,
+              color: Colors.red,),
+            content: Text("Title Field is empty",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                
+              ),),
+          );
+        }
+      );
     }
   }
   Future<DateTime?> pickDateTime(BuildContext context, DateTime initialDate) async {
